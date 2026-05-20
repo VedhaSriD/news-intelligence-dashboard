@@ -1,3 +1,6 @@
+
+
+<img width="1067" height="895" alt="Screenshot 2026-05-20 115823" src="https://github.com/user-attachments/assets/1077f09c-e719-4ca1-8e51-d9ca7b9d4175" />
 # news-intelligence-dashboard
 An editorial-style global news intelligence dashboard featuring categorized news feeds, credibility indicators, freshness tracking, bookmarks, and interactive article exploration.
 

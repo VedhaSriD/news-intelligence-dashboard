@@ -1,7 +1,5 @@
 
-
-<img width="1067" height="895" alt="Screenshot 2026-05-20 115823" src="https://github.com/user-attachments/assets/1077f09c-e719-4ca1-8e51-d9ca7b9d4175" />
-# news-intelligence-dashboard
+# News-Intelligence-Dashboard
 An editorial-style global news intelligence dashboard featuring categorized news feeds, credibility indicators, freshness tracking, bookmarks, and interactive article exploration.
 
 # Global News Intelligence Dashboard
@@ -37,5 +35,6 @@ Backend (planned): FastAPI / PostgreSQL / GitHub Actions
 <img width="743" height="615" alt="Screenshot 2026-05-20 115758" src="https://github.com/user-attachments/assets/60ca735c-25ba-4046-ae0b-cde0e9217fe8" />
 <img width="993" height="772" alt="Screenshot 2026-05-20 115847" src="https://github.com/user-attachments/assets/70dda111-d432-4510-8885-acd5356e803f" />
 <img width="982" height="883" alt="Screenshot 2026-05-20 115836" src="https://github.com/user-attachments/assets/07e381f7-fead-45e7-a730-7e90f06a3d80" />
+<img width="1067" height="895" alt="Screenshot 2026-05-20 115823" src="https://github.com/user-attachments/assets/1077f09c-e719-4ca1-8e51-d9ca7b9d4175" />
 ## Author
 Vedha Sree Dumpati

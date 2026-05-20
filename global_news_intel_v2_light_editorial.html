@@ -1,0 +1,574 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --m50:#f8f4f6;--m100:#eedde8;--m200:#ddbdd1;--m400:#b87fa0;--m600:#8c4d72;--m800:#5a2d48;--m900:#3a1a2e;
+  --ink:#1a1420;--ink2:#4a3d50;--ink3:#8a7892;--ink4:#b8a8c0;
+  --surf:#ffffff;--surf2:#faf7f9;--surf3:#f4eff2;
+  --bdr:rgba(140,77,114,0.12);--bdr2:rgba(140,77,114,0.22);
+  --success-bg:#edf7ee;--success-txt:#1e6b28;
+  --warn-bg:#fef8ec;--warn-txt:#8a5a00;
+  --red-bg:#fdf0f0;--red-txt:#b02020;
+  --shadow:0 1px 3px rgba(58,26,46,0.06),0 4px 12px rgba(58,26,46,0.06);
+  --shadow-hover:0 4px 16px rgba(58,26,46,0.12),0 1px 3px rgba(58,26,46,0.06);
+  --r6:6px;--r10:10px;--r14:14px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--surf2);color:var(--ink);font-size:13px;line-height:1.5}
+
+.wrap{max-width:780px;margin:0 auto;background:var(--surf2)}
+
+/* Ticker */
+.ticker{background:var(--m900);height:34px;display:flex;align-items:center;overflow:hidden}
+.tick-badge{flex-shrink:0;padding:0 14px;display:flex;align-items:center;gap:7px;height:100%;border-right:1px solid rgba(255,255,255,0.1)}
+.tick-dot{width:6px;height:6px;border-radius:50%;background:#f87171;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.tick-badge span{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.tick-scroll{flex:1;overflow:hidden}
+.tick-inner{display:inline-flex;white-space:nowrap;animation:marquee 32s linear infinite}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{padding:0 24px;font-size:11px;color:rgba(255,255,255,0.75);cursor:pointer;display:inline-flex;align-items:center;gap:10px}
+.tick-item:hover{color:#fff}
+.tick-pipe{color:rgba(255,255,255,0.2);font-size:10px}
+
+/* Topbar */
+.topbar{background:var(--surf);border-bottom:1px solid var(--bdr);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:28px;height:28px;border-radius:8px;background:var(--m800);display:flex;align-items:center;justify-content:center}
+.brand-icon svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.brand-name{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-0.01em}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{padding:5px 11px;border-radius:var(--r6);font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;border:none;background:transparent;transition:all .15s}
+.nav-link:hover{background:var(--surf3);color:var(--ink2)}
+.nav-link.active{background:var(--m50);color:var(--m800)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.user-chip{display:flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border-radius:999px;border:1px solid var(--bdr2);background:var(--surf);cursor:pointer}
+.avatar{width:24px;height:24px;border-radius:50%;background:var(--m200);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--m800)}
+.user-name{font-size:12px;font-weight:500;color:var(--ink2)}
+.sign-in-btn{padding:5px 12px;border-radius:var(--r6);border:1px solid var(--bdr2);background:transparent;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer}
+.sign-in-btn:hover{background:var(--surf3)}
+
+/* KPI strip */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border-bottom:1px solid var(--bdr)}
+.kpi{background:var(--surf);padding:12px 16px;text-align:center}
+.kpi-val{font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;line-height:1}
+.kpi-lbl{font-size:11px;color:var(--ink3);margin-top:3px}
+.kpi-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#f87171;margin-right:4px;animation:blink 1.4s ease-in-out infinite}
+
+/* Search row */
+.search-row{padding:14px 20px;background:var(--surf);border-bottom:1px solid var(--bdr);display:flex;gap:8px;align-items:center}
+.search-wrap{flex:1;display:flex;align-items:center;gap:8px;background:var(--surf3);border:1px solid var(--bdr);border-radius:var(--r10);padding:7px 12px}
+.search-wrap i{color:var(--ink4);font-size:15px;flex-shrink:0}
+.search-input{flex:1;border:none;background:transparent;font-size:13px;color:var(--ink);outline:none;font-family:inherit}
+.search-input::placeholder{color:var(--ink4)}
+.refresh-btn{padding:7px 14px;border-radius:var(--r10);border:1px solid var(--bdr2);background:transparent;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.refresh-btn:hover{background:var(--surf3)}
+.refresh-btn i{font-size:14px}
+
+/* Category bar */
+.cat-row{padding:12px 20px;background:var(--surf);border-bottom:1px solid var(--bdr);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.cat-row::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:5px 12px;border-radius:999px;border:1px solid var(--bdr);background:var(--surf);font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.cat-btn:hover{border-color:var(--bdr2);color:var(--ink2);background:var(--surf3)}
+.cat-btn.on{background:var(--m800);border-color:var(--m800);color:#fff}
+
+/* Feed header */
+.feed-header{padding:14px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.feed-title{font-size:13px;font-weight:600;color:var(--ink)}
+.time-tabs{display:flex;gap:2px;background:var(--surf3);border-radius:999px;padding:2px;border:1px solid var(--bdr)}
+.t-tab{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:500;color:var(--ink3);cursor:pointer;border:none;background:transparent;transition:all .15s}
+.t-tab.on{background:var(--surf);color:var(--m800);box-shadow:0 1px 3px rgba(58,26,46,.1)}
+.result-info{font-size:11px;color:var(--ink4);padding:6px 20px 0}
+
+/* Featured */
+.featured{margin:14px 20px 0;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r14);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.featured:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px)}
+.feat-accent{height:3px;background:var(--m600)}
+.feat-body{padding:18px 20px}
+.feat-badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.feat-title{font-size:17px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:8px;letter-spacing:-0.01em}
+.feat-summary{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.feat-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--bdr)}
+.feat-source{display:flex;align-items:center;gap:7px}
+.source-avatar{width:20px;height:20px;border-radius:4px;background:var(--m100);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--m800)}
+.source-txt{font-size:12px;color:var(--ink3)}
+.source-dot{color:var(--ink4);margin:0 4px}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding:12px 20px}
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r14);padding:14px;cursor:pointer;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column;gap:8px}
+.card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.bookmark-btn{flex-shrink:0;width:24px;height:24px;border-radius:6px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink4);transition:all .15s}
+.bookmark-btn:hover{background:var(--surf3);color:var(--m600)}
+.bookmark-btn.saved{color:var(--m600);background:var(--m50)}
+.card-summary{font-size:12px;color:var(--ink3);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--bdr)}
+.card-source{font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:5px}
+.mini-avatar{width:16px;height:16px;border-radius:3px;background:var(--m100);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:var(--m800)}
+.read-btn{font-size:11px;color:var(--m600);font-weight:500;cursor:pointer;display:flex;align-items:center;gap:3px}
+.read-btn i{font-size:12px}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.01em}
+.b-break{background:#fce8e8;color:#b02020}
+.b-cat{background:var(--m50);color:var(--m800);border:1px solid var(--m100)}
+.b-ver{background:var(--success-bg);color:var(--success-txt)}
+.b-trust{background:var(--warn-bg);color:var(--warn-txt)}
+.b-time{background:transparent;color:var(--ink4);padding:0;font-size:11px;font-weight:400}
+.b-score{font-size:10px;color:var(--ink4);display:flex;align-items:center;gap:3px}
+
+/* Skeleton */
+.skel{background:var(--surf3);border-radius:4px;animation:shimmer 1.4s ease infinite}
+@keyframes shimmer{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* Empty */
+.empty{padding:48px 20px;text-align:center}
+.empty i{font-size:36px;color:var(--ink4);display:block;margin-bottom:12px}
+.empty p{font-size:14px;color:var(--ink3);font-weight:500}
+.empty small{font-size:12px;color:var(--ink4)}
+
+/* Detail overlay */
+.overlay{background:rgba(26,20,32,0.45);min-height:480px;display:none;align-items:flex-start;justify-content:flex-end;padding:0}
+.overlay.open{display:flex}
+.drawer{width:320px;background:var(--surf);border-left:1px solid var(--bdr);min-height:480px;display:flex;flex-direction:column}
+.drawer-top{padding:14px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.drawer-top-label{font-size:12px;font-weight:600;color:var(--ink2)}
+.close-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--bdr);background:var(--surf2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3)}
+.close-btn:hover{background:var(--surf3)}
+.drawer-inner{padding:16px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.drawer-title{font-size:15px;font-weight:600;color:var(--ink);line-height:1.4;letter-spacing:-0.01em}
+.drawer-byline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--ink3)}
+.scores-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.score-card{background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r10);padding:10px 12px}
+.score-lbl{font-size:10px;color:var(--ink4);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.score-val{font-size:18px;font-weight:600;color:var(--ink);line-height:1}
+.score-bar{height:4px;background:var(--bdr);border-radius:2px;margin-top:6px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;background:var(--m600);transition:width .7s cubic-bezier(.22,1,.36,1)}
+.summary-section{background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r10);padding:12px}
+.section-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--m600);margin-bottom:7px}
+.summary-txt{font-size:12px;color:var(--ink2);line-height:1.7}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:5px}
+.tag{padding:3px 9px;background:var(--m50);border:1px solid var(--m100);border-radius:999px;font-size:11px;color:var(--m800)}
+.cluster-note{background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r10);padding:10px 12px;display:flex;align-items:center;gap:8px}
+.cluster-note i{color:var(--ink4);font-size:15px;flex-shrink:0}
+.cluster-txt{font-size:12px;color:var(--ink3);line-height:1.5}
+.fact-note{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:var(--r6);font-size:12px}
+.fact-ok{background:var(--success-bg);color:var(--success-txt)}
+.drawer-cta{margin-top:auto;padding:10px 14px;border-radius:var(--r10);background:var(--m800);border:none;color:#fff;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.drawer-cta:hover{background:var(--m900)}
+.drawer-cta i{font-size:14px}
+
+/* Auth overlay */
+.auth-overlay{background:rgba(26,20,32,0.5);min-height:460px;display:none;align-items:center;justify-content:center}
+.auth-overlay.open{display:flex}
+.auth-box{background:var(--surf);border-radius:var(--r14);border:1px solid var(--bdr);width:320px;padding:28px 24px}
+.auth-logo{display:flex;justify-content:center;margin-bottom:20px}
+.auth-icon{width:36px;height:36px;border-radius:10px;background:var(--m800);display:flex;align-items:center;justify-content:center}
+.auth-icon svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.auth-title{text-align:center;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.auth-sub{text-align:center;font-size:12px;color:var(--ink3);margin-bottom:20px}
+.auth-field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.auth-label{font-size:12px;font-weight:500;color:var(--ink2)}
+.auth-input{padding:8px 11px;border:1px solid var(--bdr2);border-radius:var(--r10);font-size:13px;color:var(--ink);background:var(--surf);outline:none;font-family:inherit;transition:border-color .15s}
+.auth-input:focus{border-color:var(--m400)}
+.auth-btn{width:100%;padding:9px;border-radius:var(--r10);background:var(--m800);border:none;color:#fff;font-size:13px;font-weight:500;cursor:pointer;margin-top:4px}
+.auth-btn:hover{background:var(--m900)}
+.auth-divider{text-align:center;font-size:11px;color:var(--ink4);margin:12px 0}
+.auth-toggle{text-align:center;font-size:12px;color:var(--ink3)}
+.auth-toggle span{color:var(--m600);cursor:pointer;font-weight:500}
+.auth-toggle span:hover{text-decoration:underline}
+.auth-close{position:absolute;top:12px;right:12px}
+.auth-verify{text-align:center;padding:8px 0}
+.auth-verify i{font-size:32px;color:var(--m400);display:block;margin-bottom:10px}
+.auth-verify p{font-size:13px;color:var(--ink2);line-height:1.6}
+.auth-verify small{font-size:11px;color:var(--ink4)}
+
+/* Toast */
+.toast-wrap{display:flex;justify-content:center;padding:8px}
+.toast{display:none;align-items:center;gap:8px;padding:9px 14px;background:var(--surf);border:1px solid var(--bdr2);border-radius:var(--r10);font-size:12px;color:var(--ink2);box-shadow:var(--shadow)}
+.toast.show{display:flex}
+.toast-ic{width:18px;height:18px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast-ic i{font-size:11px;color:var(--success-txt)}
+
+/* Load more */
+.load-more{text-align:center;padding:16px 20px 24px}
+.lm-btn{padding:8px 22px;border-radius:var(--r10);border:1px solid var(--bdr2);background:var(--surf);font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer}
+.lm-btn:hover{background:var(--surf3)}
+
+/* Bookmarks page */
+.page-header{padding:20px 20px 4px;border-bottom:1px solid var(--bdr)}
+.page-header h2{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.page-header p{font-size:12px;color:var(--ink3)}
+
+/* Sources page */
+.source-list{display:flex;flex-direction:column;gap:1px;background:var(--bdr);margin:0 20px 20px}
+.source-row{background:var(--surf);padding:11px 14px;display:flex;align-items:center;justify-content:space-between}
+.source-left{display:flex;align-items:center;gap:10px}
+.source-icon{width:28px;height:28px;border-radius:7px;background:var(--m50);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--m800);flex-shrink:0}
+.source-info p{font-size:13px;font-weight:500;color:var(--ink)}
+.source-info small{font-size:11px;color:var(--ink4)}
+.source-score{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.score-pct{font-size:13px;font-weight:600;color:var(--ink)}
+.score-mini-bar{width:60px;height:4px;background:var(--bdr);border-radius:2px;overflow:hidden}
+.score-mini-fill{height:100%;border-radius:2px;background:var(--m400)}
+</style>
+
+<h2 class="sr-only">Global News Intelligence — light editorial dashboard with auth, bookmarks, categories, article drawer</h2>
+
+<div class="wrap">
+
+<div class="ticker">
+  <div class="tick-badge"><span class="tick-dot"></span><span>Live</span></div>
+  <div class="tick-scroll">
+    <div class="tick-inner" id="ticker"></div>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 2v6l4 2"/></svg>
+    </div>
+    <span class="brand-name">NewsIntel</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="setPage('home')">Feed</button>
+    <button class="nav-link" onclick="setPage('bookmarks')">Bookmarks</button>
+    <button class="nav-link" onclick="setPage('sources')">Sources</button>
+    <button class="nav-link" onclick="setPage('archive')">Archive</button>
+  </div>
+  <div class="topbar-right" id="topbar-right"></div>
+</div>
+
+<div class="kpi-strip" id="kpi-strip"></div>
+
+<div id="page-content"></div>
+
+<div class="toast-wrap"><div class="toast" id="toast"><div class="toast-ic"><i class="ti ti-check"></i></div><span id="toast-msg">Done!</span></div></div>
+
+<div class="overlay" id="overlay">
+  <div class="drawer" id="drawer">
+    <div class="drawer-top">
+      <span class="drawer-top-label">Article detail</span>
+      <button class="close-btn" onclick="closeDrawer()" aria-label="Close"><i class="ti ti-x" style="font-size:13px"></i></button>
+    </div>
+    <div class="drawer-inner" id="drawer-inner"></div>
+  </div>
+</div>
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-box" id="auth-box"></div>
+</div>
+
+</div>
+
+<script>
+const ARTICLES=[
+  {id:1,title:"UN Security Council passes landmark AI governance resolution",summary:"The United Nations Security Council unanimously adopted a resolution establishing international AI safety standards, calling for mandatory evaluations of frontier models and creating a new oversight body.",category:"politics",source:"Associated Press",cred:0.95,fresh:0.98,time:"8m ago",breaking:true,tags:["UN","AI Policy","Governance"],clusters:6,fact:"clear"},
+  {id:2,title:"Anthropic releases Claude 4 with extended multi-step reasoning",summary:"Anthropic unveiled Claude 4, featuring breakthrough extended reasoning capabilities that allow complex multi-step problem solving across mathematics, coding, and scientific analysis.",category:"ai",source:"MIT Technology Review",cred:0.92,fresh:0.94,time:"34m ago",breaking:false,tags:["AI","Anthropic","Claude"],clusters:9,fact:"clear"},
+  {id:3,title:"Federal Reserve signals rate cut as inflation cools to 2.1%",summary:"The Federal Reserve hinted at a rate reduction in coming months as inflation data showed consistent progress toward its 2% target. Markets rallied sharply on the announcement.",category:"business",source:"Bloomberg",cred:0.90,fresh:0.87,time:"1h ago",breaking:false,tags:["Fed","Finance","Markets"],clusters:7,fact:"clear"},
+  {id:4,title:"OpenAI and Microsoft expand partnership with $10B enterprise deal",summary:"Microsoft and OpenAI announced an expanded $10 billion partnership targeting enterprise AI deployment, including exclusive Azure integration for the upcoming GPT-5 model.",category:"startups",source:"TechCrunch",cred:0.85,fresh:0.85,time:"2h ago",breaking:false,tags:["OpenAI","Microsoft"],clusters:5,fact:"clear"},
+  {id:5,title:"WHO reports 40% decline in malaria deaths over the past decade",summary:"The World Health Organization published findings showing a 40% reduction in malaria deaths, attributing the progress to artemisinin-based combination therapies and improved bed net coverage.",category:"health",source:"Reuters",cred:0.96,fresh:0.80,time:"3h ago",breaking:false,tags:["WHO","Health"],clusters:4,fact:"clear"},
+  {id:6,title:"Global Education Summit pledges $50B for digital literacy by 2030",summary:"Leaders at the Geneva summit agreed on a framework committing $50 billion across 120 countries for universal digital literacy programs targeting underserved communities.",category:"education",source:"BBC News",cred:0.95,fresh:0.76,time:"4h ago",breaking:false,tags:["Education","UN"],clusters:3,fact:"clear"},
+  {id:7,title:"India defeats Australia to win ICC Cricket World Cup final",summary:"India claimed the ICC Cricket World Cup title with a decisive 6-wicket victory over Australia at Wankhede Stadium, completing an unbeaten run through the entire tournament.",category:"sports",source:"ESPN",cred:0.85,fresh:0.73,time:"5h ago",breaking:false,tags:["Cricket","ICC","India"],clusters:11,fact:"clear"},
+  {id:8,title:"IBM reaches 1,000-qubit stability milestone in quantum computing",summary:"Researchers at IBM demonstrated stable operation of a 1,000-qubit quantum processor, marking a critical step toward practical quantum advantage in logistics and pharmaceutical research.",category:"technology",source:"Wired",cred:0.87,fresh:0.70,time:"5h ago",breaking:false,tags:["Quantum","IBM"],clusters:4,fact:"clear"},
+];
+
+const SOURCES=[
+  {name:"Associated Press",domain:"apnews.com",cat:"General",cred:0.95,articles:42},
+  {name:"Reuters",domain:"reuters.com",cat:"General",cred:0.96,articles:38},
+  {name:"BBC News",domain:"bbc.com",cat:"General",cred:0.93,articles:31},
+  {name:"Bloomberg",domain:"bloomberg.com",cat:"Business",cred:0.90,articles:27},
+  {name:"MIT Tech Review",domain:"technologyreview.com",cat:"Technology",cred:0.92,articles:19},
+  {name:"TechCrunch",domain:"techcrunch.com",cat:"Technology",cred:0.85,articles:24},
+  {name:"Wired",domain:"wired.com",cat:"Technology",cred:0.87,articles:17},
+  {name:"ESPN",domain:"espn.com",cat:"Sports",cred:0.85,articles:14},
+];
+
+const CATS=["All","AI","Technology","Education","Politics","Business","Startups","World","Sports","Health"];
+const CAT_MAP={ai:"AI",technology:"Technology",education:"Education",politics:"Politics",business:"Business",startups:"Startups",world:"World",sports:"Sports",health:"Health"};
+
+let state={cat:"All",time:6,page:"home",bookmarks:new Set([2,5]),user:null,authMode:"signin",showAuth:false};
+
+function credBadge(c){
+  if(c>=.9)return`<span class="badge b-ver"><i class="ti ti-shield-check" style="font-size:10px"></i> Verified</span>`;
+  if(c>=.8)return`<span class="badge b-trust"><i class="ti ti-shield" style="font-size:10px"></i> Trusted</span>`;
+  return`<span class="badge" style="background:#fce8e8;color:#b02020">Unverified</span>`;
+}
+function catBadge(cat){return`<span class="badge b-cat">${CAT_MAP[cat]||cat}</span>`;}
+function breakBadge(){return`<span class="badge b-break"><i class="ti ti-radio" style="font-size:10px"></i> Breaking</span>`;}
+function scoreBar(v,id){return`<div class="score-bar"><div class="score-fill" id="${id}" style="width:0%"></div></div>`;}
+
+function filteredArticles(){
+  let arts=ARTICLES;
+  if(state.cat!=="All") arts=arts.filter(a=>CAT_MAP[a.category]===state.cat||a.category.toLowerCase()===state.cat.toLowerCase());
+  return arts;
+}
+
+function renderKPI(){
+  const arts=filteredArticles();
+  const breaking=arts.filter(a=>a.breaking).length;
+  document.getElementById('kpi-strip').innerHTML=[
+    {lbl:"Fresh articles",val:arts.length,dot:false},
+    {lbl:"Breaking now",val:breaking,dot:true},
+    {lbl:"Verified stories",val:arts.filter(a=>a.cred>=.85).length,dot:false},
+    {lbl:"Active sources",val:new Set(arts.map(a=>a.source)).size,dot:false},
+  ].map(k=>`<div class="kpi"><div class="kpi-val">${k.dot&&k.val>0?'<span class="kpi-dot"></span>':''}${k.val}</div><div class="kpi-lbl">${k.lbl}</div></div>`).join('');
+}
+
+function renderTicker(){
+  const b=ARTICLES.filter(a=>a.breaking);
+  if(!b.length){document.querySelector('.ticker').style.display='none';return;}
+  const items=[...b,...b].map(a=>`<span class="tick-item" onclick="openDrawer(${a.id})">${a.title}<span class="tick-pipe">|</span></span>`).join('');
+  document.getElementById('ticker').innerHTML=items;
+}
+
+function renderTopbar(){
+  const el=document.getElementById('topbar-right');
+  if(state.user){
+    el.innerHTML=`<div class="user-chip" onclick="toggleAuth()"><div class="avatar">${state.user[0].toUpperCase()}</div><span class="user-name">${state.user.split('@')[0]}</span><i class="ti ti-chevron-down" style="font-size:12px;color:var(--ink4)"></i></div>`;
+  } else {
+    el.innerHTML=`<button class="sign-in-btn" onclick="openAuth('signin')">Sign in</button><button style="padding:5px 12px;border-radius:var(--r6);border:none;background:var(--m800);font-size:12px;font-weight:500;color:#fff;cursor:pointer" onclick="openAuth('signup')">Sign up</button>`;
+  }
+}
+
+function renderHomePage(){
+  const arts=filteredArticles();
+  const [top,...rest]=arts;
+  let html=`
+    <div class="search-row">
+      <div class="search-wrap"><i class="ti ti-search" aria-hidden="true"></i><input class="search-input" placeholder="Search headlines, topics, sources..." id="search-inp" oninput="handleSearch()"></div>
+      <button class="refresh-btn" onclick="doRefresh()"><i class="ti ti-refresh" aria-hidden="true"></i>Refresh</button>
+    </div>
+    <div class="cat-row">${CATS.map(c=>`<button class="cat-btn${state.cat===c?' on':''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>
+    <div class="feed-header">
+      <span class="feed-title">Latest feed</span>
+      <div class="time-tabs">${[6,24,48].map(h=>`<button class="t-tab${state.time===h?' on':''}" onclick="setTime(${h})">Last ${h}h</button>`).join('')}</div>
+    </div>
+    <div class="result-info">${arts.length} article${arts.length!==1?'s':''}${state.cat!=='All'?' · '+state.cat:''}</div>`;
+
+  if(!arts.length){
+    html+=`<div class="empty"><i class="ti ti-inbox" aria-hidden="true"></i><p>No articles found</p><small>Try a different category or time range</small></div>`;
+  } else {
+    const isBookmarked=top&&state.bookmarks.has(top.id);
+    html+=`
+    <div class="featured" onclick="openDrawer(${top.id})">
+      <div class="feat-accent"></div>
+      <div class="feat-body">
+        <div class="feat-badges">
+          ${top.breaking?breakBadge():''}
+          ${catBadge(top.category)}
+          ${credBadge(top.cred)}
+          <span class="b-time">${top.time}</span>
+          <span style="margin-left:auto;display:flex;gap:5px;align-items:center">
+            <span class="b-score"><i class="ti ti-users" style="font-size:11px" aria-hidden="true"></i> ${top.clusters} sources</span>
+            <button class="bookmark-btn${isBookmarked?' saved':''}" onclick="event.stopPropagation();toggleBookmark(${top.id})" aria-label="Bookmark"><i class="ti ti-bookmark" style="font-size:14px"></i></button>
+          </span>
+        </div>
+        <div class="feat-title">${top.title}</div>
+        <div class="feat-summary">${top.summary}</div>
+        <div class="feat-foot">
+          <div class="feat-source">
+            <div class="source-avatar">${top.source[0]}</div>
+            <span class="source-txt">${top.source}</span>
+          </div>
+          <span style="font-size:12px;color:var(--m600);font-weight:500;display:flex;align-items:center;gap:4px">Read story <i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="grid">${rest.map((a,i)=>renderCard(a,i)).join('')}</div>
+    <div class="load-more"><button class="lm-btn" onclick="doLoadMore()">Load more articles</button></div>`;
+  }
+  document.getElementById('page-content').innerHTML=html;
+}
+
+function renderCard(a,i){
+  const bk=state.bookmarks.has(a.id);
+  return`<div class="card" style="animation:fadeIn .35s ease ${i*.05}s both" onclick="openDrawer(${a.id})">
+    <div class="card-top">
+      <div class="card-title">${a.title}</div>
+      <button class="bookmark-btn${bk?' saved':''}" onclick="event.stopPropagation();toggleBookmark(${a.id})" aria-label="Bookmark"><i class="ti ti-bookmark" style="font-size:13px"></i></button>
+    </div>
+    <div class="card-summary">${a.summary}</div>
+    <div class="card-meta">
+      ${a.breaking?breakBadge():''}
+      ${catBadge(a.category)}
+      ${credBadge(a.cred)}
+      <span class="b-time">${a.time}</span>
+    </div>
+    <div class="card-foot">
+      <div class="card-source"><div class="mini-avatar">${a.source[0]}</div>${a.source}</div>
+      <span class="read-btn">Read <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+    </div>
+  </div>`;
+}
+
+function renderBookmarksPage(){
+  const bks=ARTICLES.filter(a=>state.bookmarks.has(a.id));
+  let html=`<div class="page-header"><h2>Bookmarks</h2><p>${bks.length} saved article${bks.length!==1?'s':''}</p></div>`;
+  if(!state.user){
+    html+=`<div class="empty"><i class="ti ti-lock" aria-hidden="true"></i><p>Sign in to save bookmarks</p><small>Your saved articles will appear here</small><br><br><button style="padding:7px 18px;border-radius:var(--r10);background:var(--m800);border:none;color:#fff;font-size:12px;font-weight:500;cursor:pointer;margin-top:4px" onclick="openAuth('signin')">Sign in</button></div>`;
+  } else if(!bks.length){
+    html+=`<div class="empty"><i class="ti ti-bookmark" aria-hidden="true"></i><p>No bookmarks yet</p><small>Click the bookmark icon on any article to save it</small></div>`;
+  } else {
+    html+=`<div class="grid" style="padding-top:14px">${bks.map((a,i)=>renderCard(a,i)).join('')}</div>`;
+  }
+  document.getElementById('page-content').innerHTML=html;
+}
+
+function renderSourcesPage(){
+  let html=`<div class="page-header"><h2>News sources</h2><p>${SOURCES.length} verified publishers · ranked by credibility</p></div>`;
+  html+=`<div style="height:12px"></div><div class="source-list" style="border-radius:var(--r14);overflow:hidden">`;
+  html+=SOURCES.sort((a,b)=>b.cred-a.cred).map(s=>`
+    <div class="source-row">
+      <div class="source-left">
+        <div class="source-icon">${s.name[0]}</div>
+        <div class="source-info"><p>${s.name}</p><small>${s.domain} · ${s.cat}</small></div>
+      </div>
+      <div class="source-score">
+        <span class="score-pct">${Math.round(s.cred*100)}%</span>
+        <div class="score-mini-bar"><div class="score-mini-fill" style="width:${s.cred*100}%"></div></div>
+        <span style="font-size:10px;color:var(--ink4)">${s.articles} articles</span>
+      </div>
+    </div>`).join('');
+  html+=`</div>`;
+  document.getElementById('page-content').innerHTML=html;
+}
+
+function renderArchivePage(){
+  const dates=["Yesterday — May 17","May 16","May 15","May 14","May 13"];
+  let html=`<div class="page-header"><h2>Archive</h2><p>Browse past verified news by date</p></div>
+  <div style="padding:14px 20px;display:flex;flex-wrap:wrap;gap:7px">
+    ${dates.map((d,i)=>`<button class="cat-btn${i===0?' on':''}" onclick="showToast('Loading ${d}…')">${d}</button>`).join('')}
+    <input type="date" style="padding:5px 10px;border-radius:999px;border:1px solid var(--bdr2);font-size:12px;color:var(--ink2);background:var(--surf);outline:none">
+  </div>
+  <div class="grid">${ARTICLES.slice(0,4).map((a,i)=>renderCard(a,i)).join('')}</div>`;
+  document.getElementById('page-content').innerHTML=html;
+}
+
+function setPage(p){
+  state.page=p;
+  document.querySelectorAll('.nav-link').forEach((el,i)=>{
+    const pages=['home','bookmarks','sources','archive'];
+    el.classList.toggle('active',pages[i]===p);
+  });
+  renderPage();
+}
+
+function renderPage(){
+  renderKPI();
+  if(state.page==='home') renderHomePage();
+  else if(state.page==='bookmarks') renderBookmarksPage();
+  else if(state.page==='sources') renderSourcesPage();
+  else if(state.page==='archive') renderArchivePage();
+}
+
+function setCat(c){state.cat=c;renderPage();}
+function setTime(h){state.time=h;renderPage();}
+function handleSearch(){renderPage();}
+function doRefresh(){showToast('Refresh queued — check back in ~2 min.');}
+function doLoadMore(){showToast('Loading more articles…');}
+
+function toggleBookmark(id){
+  if(!state.user){openAuth('signin');return;}
+  if(state.bookmarks.has(id)){state.bookmarks.delete(id);showToast('Removed from bookmarks');}
+  else{state.bookmarks.add(id);showToast('Saved to bookmarks');}
+  renderPage();
+}
+
+function openDrawer(id){
+  const a=ARTICLES.find(x=>x.id===id);if(!a)return;
+  document.getElementById('drawer-inner').innerHTML=`
+    <div style="display:flex;flex-wrap:wrap;gap:5px">${a.breaking?breakBadge():''}${catBadge(a.category)}${credBadge(a.cred)}<span class="b-time">${a.time}</span></div>
+    <div class="drawer-title">${a.title}</div>
+    <div class="drawer-byline"><div class="source-avatar">${a.source[0]}</div><span>${a.source}</span><span class="source-dot">·</span><span>${a.time}</span></div>
+    <div class="scores-row">
+      <div class="score-card"><div class="score-lbl">Credibility</div><div class="score-val">${Math.round(a.cred*100)}%</div>${scoreBar(a.cred,'c-fill')}</div>
+      <div class="score-card"><div class="score-lbl">Freshness</div><div class="score-val">${Math.round(a.fresh*100)}%</div>${scoreBar(a.fresh,'f-fill')}</div>
+    </div>
+    <div class="summary-section"><div class="section-lbl">Summary</div><p class="summary-txt">${a.summary}</p></div>
+    <div class="tags-wrap">${a.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
+    <div class="cluster-note"><i class="ti ti-source-code" aria-hidden="true"></i><span class="cluster-txt">Also covered by <strong>${a.clusters} other sources</strong> in this cluster</span></div>
+    <div class="fact-note fact-ok"><i class="ti ti-shield-check" style="font-size:14px"></i> Fact check: no flags found</div>
+    <button class="drawer-cta" onclick="showToast('Opening article…')"><i class="ti ti-external-link" aria-hidden="true"></i> Read full article</button>`;
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(()=>{
+    const cf=document.getElementById('c-fill');
+    const ff=document.getElementById('f-fill');
+    if(cf)cf.style.width=(a.cred*100)+'%';
+    if(ff)ff.style.width=(a.fresh*100)+'%';
+  },100);
+}
+
+function closeDrawer(){document.getElementById('overlay').classList.remove('open');}
+
+function openAuth(mode){
+  state.authMode=mode;
+  renderAuthBox();
+  document.getElementById('auth-overlay').classList.add('open');
+}
+function closeAuth(){document.getElementById('auth-overlay').classList.remove('open');}
+function toggleAuth(){
+  if(state.user){state.user=null;showToast('Signed out');renderTopbar();renderPage();}
+  else openAuth('signin');
+}
+
+function renderAuthBox(){
+  const isSign=state.authMode==='signin';
+  document.getElementById('auth-box').innerHTML=`
+    <div class="auth-logo"><div class="auth-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 2v6l4 2"/></svg></div></div>
+    <h3 class="auth-title">${isSign?'Sign in to NewsIntel':'Create your account'}</h3>
+    <p class="auth-sub">${isSign?'Welcome back':'Start reading smarter today'}</p>
+    <div class="auth-field"><label class="auth-label">Email address</label><input class="auth-input" type="email" placeholder="you@example.com" id="auth-email"></div>
+    <div class="auth-field"><label class="auth-label">Password</label><input class="auth-input" type="password" placeholder="${isSign?'Your password':'Create a password'}" id="auth-pass"></div>
+    ${!isSign?`<div class="auth-field"><label class="auth-label">Confirm password</label><input class="auth-input" type="password" placeholder="Confirm password"></div>`:''}
+    <button class="auth-btn" onclick="handleAuthSubmit()">${isSign?'Sign in':'Create account'}</button>
+    <div class="auth-divider">— or —</div>
+    <div class="auth-toggle">${isSign?'New to NewsIntel? <span onclick="switchAuth(\'signup\')">Create account</span>':'Already have an account? <span onclick="switchAuth(\'signin\')">Sign in</span>'}</div>
+    <div style="margin-top:14px;text-align:center"><button style="border:none;background:transparent;font-size:12px;color:var(--ink4);cursor:pointer" onclick="closeAuth()">Cancel</button></div>`;
+}
+
+function switchAuth(m){state.authMode=m;renderAuthBox();}
+
+function handleAuthSubmit(){
+  const email=document.getElementById('auth-email')?.value||'';
+  if(!email||!email.includes('@')){showToast('Enter a valid email address');return;}
+  if(state.authMode==='signup'){
+    document.getElementById('auth-box').innerHTML=`
+      <div class="auth-logo"><div class="auth-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 2v6l4 2"/></svg></div></div>
+      <div class="auth-verify"><i class="ti ti-mail" aria-hidden="true"></i><p>Check your inbox</p><br><p>We sent a verification link to<br><strong>${email}</strong></p><br><small>Powered by Clerk email verification</small></div>
+      <div style="margin-top:16px;text-align:center"><button style="padding:7px 18px;border-radius:var(--r10);background:var(--m800);border:none;color:#fff;font-size:12px;cursor:pointer" onclick="simulateVerify('${email}')">Simulate verify ↗</button></div>`;
+  } else {
+    state.user=email;closeAuth();showToast('Signed in as '+email.split('@')[0]);renderTopbar();renderPage();
+  }
+}
+
+function simulateVerify(email){
+  state.user=email;closeAuth();showToast('Email verified! Welcome to NewsIntel');renderTopbar();renderPage();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+document.getElementById('overlay').addEventListener('click',function(e){
+  if(e.target===this)closeDrawer();
+});
+document.getElementById('auth-overlay').addEventListener('click',function(e){
+  if(e.target===this)closeAuth();
+});
+
+const fadeStyle=document.createElement('style');
+fadeStyle.textContent='@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}';
+document.head.appendChild(fadeStyle);
+
+renderTicker();
+renderTopbar();
+renderPage();
+</script>

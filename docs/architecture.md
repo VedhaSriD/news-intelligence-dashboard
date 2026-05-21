@@ -1,0 +1,3 @@
+# Architecture — NewsIntel
+
+## System Overview
